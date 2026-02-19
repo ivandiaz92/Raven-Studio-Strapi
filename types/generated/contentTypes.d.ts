@@ -362,6 +362,40 @@ export interface AdminUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiBlogPostBlogPost extends Schema.CollectionType {
+  collectionName: 'blog_posts';
+  info: {
+    displayName: 'Blog Post';
+    pluralName: 'blog-posts';
+    singularName: 'blog-post';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    author: Attribute.String;
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::blog-post.blog-post',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    date_created: Attribute.Date;
+    main_image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    post_content: Attribute.Blocks;
+    post_title: Attribute.String;
+    publishedAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::blog-post.blog-post',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiProjectProject extends Schema.CollectionType {
   collectionName: 'projects';
   info: {
@@ -374,7 +408,6 @@ export interface ApiProjectProject extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    client_name: Attribute.String;
     createdAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::project.project',
@@ -382,12 +415,75 @@ export interface ApiProjectProject extends Schema.CollectionType {
       'admin::user'
     > &
       Attribute.Private;
-    main_mockup: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    project_description: Attribute.Text;
+    project_conclusion: Attribute.Text;
+    project_date: Attribute.Date;
+    project_gallery: Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    project_image: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    project_name: Attribute.String;
+    project_overview: Attribute.Text;
+    project_tools: Attribute.JSON;
+    project_url: Attribute.String;
     publishedAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     updatedBy: Attribute.Relation<
       'api::project.project',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiQuoteRequestQuoteRequest extends Schema.CollectionType {
+  collectionName: 'quote_requests';
+  info: {
+    description: 'Brief para cotizaci\u00F3n de sitio web \u2014 submissions from the contact/quote form';
+    displayName: 'Quote Request';
+    pluralName: 'quote-requests';
+    singularName: 'quote-request';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    additional_functionality: Attribute.String;
+    company_name: Attribute.String & Attribute.Required;
+    contact_name: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::quote-request.quote-request',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    current_site_url: Attribute.String;
+    domain_provider: Attribute.String;
+    email: Attribute.String & Attribute.Required;
+    functionality_description: Attribute.Text;
+    functionality_types: Attribute.JSON;
+    google_analytics_global: Attribute.String;
+    has_domain: Attribute.String;
+    has_hosting: Attribute.String;
+    hosting_preference: Attribute.String;
+    info_level: Attribute.String;
+    maintenance_plan: Attribute.String;
+    measurement_tags: Attribute.String;
+    project_type: Attribute.String;
+    quantity_approximate: Attribute.String;
+    sections_modify: Attribute.String;
+    sections_needed: Attribute.Text;
+    sections_specify: Attribute.Text;
+    show_products_services: Attribute.String;
+    site_has_blog: Attribute.String;
+    site_objective: Attribute.String;
+    social_networks: Attribute.Text;
+    support_types: Attribute.JSON;
+    updatedAt: Attribute.DateTime;
+    updatedBy: Attribute.Relation<
+      'api::quote-request.quote-request',
       'oneToOne',
       'admin::user'
     > &
@@ -831,7 +927,9 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::blog-post.blog-post': ApiBlogPostBlogPost;
       'api::project.project': ApiProjectProject;
+      'api::quote-request.quote-request': ApiQuoteRequestQuoteRequest;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

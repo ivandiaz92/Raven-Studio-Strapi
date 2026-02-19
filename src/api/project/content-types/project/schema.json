@@ -12,13 +12,10 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "client_name": {
+    "project_name": {
       "type": "string"
     },
-    "project_description": {
-      "type": "text"
-    },
-    "main_mockup": {
+    "project_image": {
       "type": "media",
       "multiple": false,
       "required": false,
@@ -28,6 +25,32 @@
         "videos",
         "audios"
       ]
+    },
+    "project_date": {
+      "type": "date"
+    },
+    "project_url": {
+      "type": "string"
+    },
+    "project_tools": {
+      "type": "json"
+    },
+    "project_gallery": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "project_overview": {
+      "type": "text"
+    },
+    "project_conclusion": {
+      "type": "text"
     }
   }
 }
